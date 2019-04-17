@@ -53,3 +53,16 @@ js渲染和ui渲染线程互斥
 
 - nginx 开多进程 => node => java 
 
+
+## i/o 异步/同步  阻塞/非租塞
+
+- 内核v8 基于libuv库 多线程(可以实现异步)
+- 拥有服务端能力，内置了很多模块 fs http...
+
+## 异步/同步
+- 指的是被调用方 fs 等等
+- 阻塞和非租塞  被调用方
+
+#### 浏览器里面window node里是global
+
+![avatar](http://image.mamicode.com/info/201803/20180307105410582911.jpg)
