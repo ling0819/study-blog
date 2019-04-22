@@ -39,6 +39,7 @@ setImmediate(() => {
 setTimeout(() => {
     console.log(2);
 })
+
 // 宏任务和微任务执行机制和浏览器一样 不过node每个阶段都有自己的队列
 // 有check会先走check 没有会等待poll
 
