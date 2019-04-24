@@ -7,6 +7,13 @@
 // 浏览器中可以访问window 不能访问global
 // 服务端可以访问global上的属性
 
+// 在浏览器中默认this指的是window
+
+// 浏览器中window是代理了global属性
+
+// 在文件中允许默认这个this不是global, 在node环境中this就是global
+
+// 在文件中this指向更改的指向module.exports
 
 // console.log(Object.keys(global));
 
@@ -42,5 +49,3 @@ setTimeout(() => {
 
 // 宏任务和微任务执行机制和浏览器一样 不过node每个阶段都有自己的队列
 // 有check会先走check 没有会等待poll
-
-
