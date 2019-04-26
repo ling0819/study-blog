@@ -30,8 +30,8 @@ girl.on('cry', cry);
 
 girl.once('say', say);
 girl.off('say', say); // 取消订阅
-girl.emit('say');
-girl.emit('say');
+// girl.emit('say');
+// girl.emit('say');
 // girl.emit('cry', '胖子');
 // // girl.off('cry', cry); // 取消订阅
 // girl.emit('cry', '瘦子');
