@@ -1,0 +1,2 @@
+let fs = require('fs');
+
