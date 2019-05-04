@@ -31,28 +31,86 @@ let path = require('path');
 
 //同步版本 广度遍历  
 
-function removeDirSync(dir) {
-    let arr = [dir];
-    let index = 0;
-    let currentPath;  // 读取的当前目录
-    while(currentPath = arr[index++]) {
-        let statObj = fs.statSync(currentPath);
-        if (statObj.isDirectory()) {
-            let dirs = fs.readdirSync(currentPath);
-            dirs = dirs.map(d=> path.join(currentPath, d)); // 当前子级文件夹的路径
-            arr = [...arr, ...dirs];
-        }
-    }
+// function removeDirSync(dir) {
+//     let arr = [dir];
+//     let index = 0;
+//     let currentPath;  // 读取的当前目录
+//     while(currentPath = arr[index++]) {
+//         let statObj = fs.statSync(currentPath);
+//         if (statObj.isDirectory()) {
+//             let dirs = fs.readdirSync(currentPath);
+//             dirs = dirs.map(d=> path.join(currentPath, d)); // 当前子级文件夹的路径
+//             arr = [...arr, ...dirs];
+//         }
+//     }
 
-    // 将文件一级一级展开放入数组 指针后移 
-    for (let i = arr.length - 1; i >= 0; i--) {
-        let statObj = fs.statSync(arr[i]);
+//     // 将文件一级一级展开放入数组 指针后移 
+//     for (let i = arr.length - 1; i >= 0; i--) {
+//         let statObj = fs.statSync(arr[i]);
+//         if (statObj.isDirectory()) {
+//             fs.rmdirSync(arr[i]);
+//         } else {
+//             fs.unlinkSync(arr[i]);
+//         }
+//     }  
+// }
+
+// removeDirSync('b');
+
+
+// 异步版本  先序深度串行
+
+// function removeDir(dir, callback) {
+//     fs.stat(dir, (err, statObj) => {
+//         if (statObj.isDirectory()) {
+//             // 读取目录
+//             fs.readdir(dir, (err, dirs) => {
+//                 dirs = dirs.map(item => path.join(dir, item));
+//                 // 数组中的挨着删除
+//                 function next(index) {
+//                     if (index === dirs.length) return fs.rmdir(dir, callback);
+//                     removeDir(dirs[index], () =>next(index+1));
+//                 }
+
+//                 next(0);
+//             })
+//         } else {
+//             fs.unlink(dir, callback);
+//         }
+//     })
+// }
+
+// removeDir('a');
+
+// 异步 先序并发删除
+function removeDir(dir, callback) {
+    fs.stat(dir, (err, statObj) => {
         if (statObj.isDirectory()) {
-            fs.rmdirSync(arr[i]);
+            // 读取目录
+            fs.readdir(dir, (err, dirs) => {
+                // 并发删除
+                if(dirs.length === 0){  //如果是空目录 直接删除
+                    return fs.rmdir(dir, callback);
+                }
+                
+                // 非空目录 [a/b, a/c]
+                dirs = dirs.map(item =>{
+                    let currentPath =  path.join(dir, item);
+                    removeDir(currentPath, done);
+                    return currentPath;
+                });
+                let index = 0;
+                function done() {
+                    if (++index === dirs.length) {
+                        fs.rmdir(dir, callback);
+                    }
+                }
+
+            })
         } else {
-            fs.unlinkSync(arr[i]);
+            fs.unlink(dir, callback);
         }
-    }  
+    })
 }
 
-removeDirSync('b');
+removeDir('a');
