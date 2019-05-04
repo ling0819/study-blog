@@ -12,3 +12,17 @@
 
 关于二进制，八进制，十进制，十六进制之间相互转换参考链接：
 https://jingyan.baidu.com/article/495ba84109665338b30ede98.html
+
+## 创建文件 
+ - mkdirSync 同步
+ - mkdir 异步
+
+ ## 删除文件
+ - rmdir
+
+ ## 删除文件
+ - unlinkSync
+
+ 文件状态 fs.stat  
+
+ 深度遍历 广度遍历
