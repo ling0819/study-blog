@@ -1,7 +1,10 @@
 // 希望不会占用大量内存
 let fs = require('fs');
+// 使用模拟的可读流
+let ReadStream = require('./ReadStream');
 
-let rs = fs.createReadStream('./1.txt', {
+
+let rs = new ReadStream('./1.txt', {
     flags: 'r', // 打开文件做什么 r w r+ w+ ...
     highWaterMark: 1, // 每次读取一个字节 默认 64k
     mode: 0o666, // 可读可写

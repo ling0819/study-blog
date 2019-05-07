@@ -19,7 +19,7 @@ class ReadStream extends EventEmitter {
         // 读取文件
         this.open();
 
-        this.open('newListener', (type) => {
+        this.on('newListener', (type) => {
             if (type === 'data') {
                 this.flowing = true;
                 this.read();
