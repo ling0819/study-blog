@@ -20,6 +20,9 @@
       [文件读写demo链接](https://github.com/ling0819/study-blog/tree/master/node-study/js/fs)
       
       [文件创建删除demo链接](https://github.com/ling0819/study-blog/tree/master/node-study/js/fs2)
+ - [x] [流 可读流与可写流](https://github.com/ling0819/study-blog/blob/master/node-study/stream.md)
+ 
+      [可读流与可写流实现原理demo](https://github.com/ling0819/study-blog/tree/master/node-study/js/stream)
 
 
 ## webgl系列 
