@@ -1,6 +1,6 @@
 let fs = require('fs');
 let {Readable, Writable, Duplex, Transform} = require('stream');
-
+let stream = require('stream');
 
 // 父类会调用子类的_read方法
 // http基于流的req.on('data')
@@ -113,3 +113,7 @@ class MyTransform extends Transform {
 let tr = new MyTransform();
 
 process.stdin.pipe(tr).pipe(process.stdout);
+
+
+// 如何判断一个东西是不是流
+console.log(tr instanceof stream);
