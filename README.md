@@ -25,8 +25,8 @@
       [可读流与可写流实现原理demo](https://github.com/ling0819/study-blog/tree/master/node-study/js/stream)
       
 - [x] [http协议知识点](https://github.com/ling0819/study-blog/blob/master/node-study/http.md)
- 
-      [http服务器demo](https://github.com/ling0819/study-blog/tree/master/node-study/js/http)
+
+     [http服务器demo](https://github.com/ling0819/study-blog/tree/master/node-study/js/http)
 
 
 ## webgl系列 
