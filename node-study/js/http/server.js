@@ -1,6 +1,8 @@
 let http = require('http');
 
 let server = http.createServer();
+let querystring = require('querystring');
+
 // 内部通过tcp进行传输的  socket 套接字  socket是一个双工流
 // 可以拿到浏览器发来的所有内容 buffer 行 头 体
 // 在内部把socket分成两部分 this.emit('request', req, res)
@@ -19,10 +21,19 @@ server.on('request', (req, res) => {
         arr.push(chunk);
     });
     req.on('end', () => {
-        console.log(Buffer.concat(arr).toString());
+        let str = Buffer.concat(arr).toString();
+        let obj = {};
+        if (req.headers['content-type'] === 'application/x-www-form-urlencoded') {
+            obj = querystring.parse(str);
+        }
+
+        if (req.headers['content-type'] === 'application/json') {
+            obj = JSON.parse(str);
+        }
+        
         res.statusCode = 200;
         res.setHeader('a', 1);
-        res.end('hello');
+        res.end(`${obj.name}`);
     })
 });
 
